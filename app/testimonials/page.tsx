@@ -1,0 +1,28 @@
+import { getTestimonials } from '@/lib/cosmic'
+import SectionHeading from '@/components/SectionHeading'
+import TestimonialCard from '@/components/TestimonialCard'
+
+export const metadata = {
+  title: 'Testimonials — My Company',
+}
+
+export default async function TestimonialsPage() {
+  const testimonials = await getTestimonials()
+
+  return (
+    <div className="py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading eyebrow="Client Feedback" title="What Our Clients Say" description="Real stories from the people we've worked with." />
+        {testimonials.length === 0 ? (
+          <p className="text-center text-gray-500">No testimonials available yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((t) => (
+              <TestimonialCard key={t.id} testimonial={t} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
